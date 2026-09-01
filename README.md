@@ -6,7 +6,7 @@ Repositorio del grupo. Partir de este esqueleto. No borrar la estructura de `src
 
 | Nombre | Mail | GitHub |
 | --- | --- | --- |
-| De Seta Lautaro | Desetalautaro@gmail.com | DeSetaLautaro |
+| De Seta Lautaro | desetalautaro@gmail.com | DeSetaLautaro |
 | Guzman Alvar | alvarguzman@gmail.com | Alvarguzman123 |
 | Oregioni Carla | carlaoregioni@gmail.com | carlaoregioni |
 
