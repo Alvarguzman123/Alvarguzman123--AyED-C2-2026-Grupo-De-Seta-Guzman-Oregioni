@@ -6,7 +6,7 @@ Repositorio del grupo. Partir de este esqueleto. No borrar la estructura de `src
 
 | Nombre | Mail | GitHub |
 | --- | --- | --- |
-|  |  |  |
+| Guzman Alvar |  |  |
 |  |  |  |
 |  |  |  |
 
