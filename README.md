@@ -6,11 +6,11 @@ Repositorio del grupo. Partir de este esqueleto. No borrar la estructura de `src
 
 | Nombre | Mail | GitHub |
 | --- | --- | --- |
-| Guzman Alvar |  |  |
-|  |  |  |
-|  |  |  |
+| De Seta Lautaro | Desetalautaro@gmail.com | DeSetaLautaro |
+| Guzman Alvar | alvarguzman@gmail.com | Alvarguzman123 |
+| Oregioni Carla | carlaoregioni@gmail.com | carlaoregioni |
 
-**Tema elegido:** Pokédex / Recetario / Biblioteca musical (dejar uno)
+**Tema elegido:** Pokédex 
 
 ## Cómo ejecutar
 
