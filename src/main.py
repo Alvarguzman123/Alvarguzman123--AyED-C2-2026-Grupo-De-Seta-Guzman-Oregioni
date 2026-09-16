@@ -1,5 +1,5 @@
 from src.config import TEMA
-from src.dominio.catalogo import pokedex_inicial
+from src.dominio.catalogo import pokedex_inicial, imprimir_cadena_evolutiva, bulbasaur, charmander, venusaur
 
 TEMAS = {
     "pokedex": "Pokédex",
@@ -42,8 +42,19 @@ def main():
             print("\n--- Pokédex Inicial ---")
             for pokemon in pokedex_inicial:
                 print(pokemon)
+
+        elif opcion == "5":
+            print("\n--- Probando cadena desde bulbasaur ---")
+            imprimir_cadena_evolutiva(bulbasaur)
+            
+            print("\n--- Probando cadena desde charmander ---")
+            imprimir_cadena_evolutiva(charmander)
+
+            print("\n--- Probando cadena desde venusaur ---")
+            imprimir_cadena_evolutiva(venusaur)
+            print()
                 
-        elif opcion in {"2", "3", "4", "5", "6", "7", "8", "9"}:
+        elif opcion in {"2", "3", "4", "6", "7", "8", "9"}:
             pendiente()
         else:
             print("Opción inválida.")
