@@ -25,7 +25,11 @@ pokedex_inicial = [bulbasaur, ivysaur, venusaur, charmander, charmeleon, chariza
 
 def imprimir_cadena_evolutiva(pokemon_actual):
     if pokemon_actual is None:
+        print("El pokemon no existe")
         return
-    print(f"-> {pokemon_actual.nombre}")
+    if pokemon_actual.evolucion is None:
+        return print(f"-> {pokemon_actual.nombre} (última evolución)")
+    else: print(f"-> {pokemon_actual.nombre}")
+    
 
     imprimir_cadena_evolutiva(pokemon_actual.evolucion)

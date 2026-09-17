@@ -6,7 +6,7 @@ class Pokemon:
         #Sirve para establecer la relación de evolución entre los pokemones. Por ejemplo, Bulbasaur evoluciona a Ivysaur, y luego a Venusaur. Por ahora representa un valor nulo, pero luego se puede establecer la relación de evolución entre los pokemones.#
         self.evolucion = None
 
-    def establecer_evolucion(self, siguiente_epokemon):
-        self.evolucion = siguiente_epokemon
+    def establecer_evolucion(self, siguiente_pokemon):
+        self.evolucion = siguiente_pokemon
     def __str__(self):
         return f"Nro: {self.numero} | {self.nombre} | Tipo: {self.tipo}"
