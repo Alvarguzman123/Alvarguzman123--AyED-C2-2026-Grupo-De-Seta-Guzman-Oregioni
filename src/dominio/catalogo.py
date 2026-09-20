@@ -23,9 +23,16 @@ charmeleon.establecer_evolucion(charizard)
 # Creamos el catálogo en forma de lista para cada grupo de pokemones #
 pokedex_inicial = [bulbasaur, ivysaur, venusaur, charmander, charmeleon, charizard]
 
+#Esta es la función recursiva que imprime la cadena evolutiva de un pokemon dado. Se le pasa como parámetro el pokemon actual y se va recorriendo la cadena de evolución hasta llegar al último pokemon.#
+
+#En caso de que el pokemon no exista, se imprime un mensaje indicando que el pokemon no existe. En caso de que el pokemon actual no tenga una evolución, se imprime un mensaje indicando que es la última evolución. En caso contrario, se imprime el nombre del pokemon actual y se llama recursivamente a la función con el siguiente pokemon en la cadena evolutiva.#
 def imprimir_cadena_evolutiva(pokemon_actual):
     if pokemon_actual is None:
+        print("El pokemon no existe")
         return
-    print(f"-> {pokemon_actual.nombre}")
+    if pokemon_actual.evolucion is None:
+        return print(f"-> {pokemon_actual.nombre} (última evolución)")
+    else: print(f"-> {pokemon_actual.nombre}")
+    
 
     imprimir_cadena_evolutiva(pokemon_actual.evolucion)

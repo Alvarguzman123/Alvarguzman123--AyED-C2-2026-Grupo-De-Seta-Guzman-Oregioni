@@ -46,9 +46,9 @@ def main():
         elif opcion == "5":
             print("\n--- Probando cadena desde bulbasaur ---")
             imprimir_cadena_evolutiva(bulbasaur)
-            
-            print("\n--- Probando cadena desde charmander ---")
-            imprimir_cadena_evolutiva(charmander)
+
+            print("\n--- Probando cadena con ítem inexistente ---")
+            imprimir_cadena_evolutiva(None)
 
             print("\n--- Probando cadena desde venusaur ---")
             imprimir_cadena_evolutiva(venusaur)
@@ -61,3 +61,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+    
+#python -m src.main
