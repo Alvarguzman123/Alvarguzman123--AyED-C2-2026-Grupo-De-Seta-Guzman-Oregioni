@@ -31,10 +31,29 @@ Debe ser mutable obligatoriamente, ya que el sistema necesitará conectar de for
 
 ## 3. Recursión (E2)
 
-- Función:
-- Caso base:
-- Caso recursivo:
+- Función: imprimir_cadena_evolutiva(pokemon_actual)
+- Caso base: si pokemon_actual.evolucion is None, se imprime "(última evolución)" y el recorrido termina.
+- Caso recursivo: se imprime el nombre actual y se llama a imprimir_cadena_evolutiva(pokemon_actual.evolucion).
 - Traza de un ejemplo real del dataset:
+
+Traza para Bulbasaur
+Paso 1: imprimir_cadena_evolutiva(bulbasaur)
+
+¿Su evolución es None? No (es Ivysaur).
+
+Acción: Imprime -> Bulbasaur. Llama a imprimir_cadena_evolutiva(ivysaur).
+
+Paso 2: imprimir_cadena_evolutiva(ivysaur)
+
+¿Su evolución es None? No (es Venusaur).
+
+Acción: Imprime -> Ivysaur. Llama a imprimir_cadena_evolutiva(venusaur).
+
+Paso 3: imprimir_cadena_evolutiva(venusaur)
+
+¿Su evolución es None? SÍ (Caso base).
+
+Acción: Imprime -> Venusaur (última evolución). Retorna y corta la recursión.
 
 ## 4. TADs (E3)
 
