@@ -8,7 +8,7 @@ Fecha de esta versión del archivo: 20/09/2026
 | --- | --- | --- | --- | --- | --- | --- |
 | E1 | 11/09/2026 | Gemini | código/debug | El return de los objetos pokemon | Comandos de github | Alvar-Carla |
 | E2 | 20/09/2026 | Gemini | código/debug/docs | Verificación de recursividad, manejo de None, tabla de pruebas | Ajuste de caso recursivo | Todos |
-| E3 |  |  |  |  |  |  |
+| E3 | 4/10/2026 | Gemini | código/debug | Lista enlazada | Adaptación de insertar_ordenado a lógica básica | Todos |
 | E4 |  |  |  |  |  |  |
 | E5 |  |  |  |  |  |  |
 | E6 |  |  |  |  |  |  |

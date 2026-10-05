@@ -59,11 +59,9 @@ Acción: Imprime -> Venusaur (última evolución). Retorna y corta la recursión
 
 | TAD | Operaciones | Invariante |
 | --- | --- | --- |
-| ListaEnlazada |  |  |
-| Pila |  |  |
-| Cola |  |  |
-
-Dónde se usa cada uno en el dominio.
+| ListaEnlazada | `insertar_al_inicio`, `insertar_al_final`, `insertar_ordenado`, `buscar`, `eliminar`, `tamanio`, `esta_vacia` | Los datos se conectan mediante nodos con referencias (no usa `list` de Python). El atributo tamaño siempre representa la cantidad real de nodos enlazados desde la cabeza. |
+| Pila | `apilar`, `desapilar`, `ver_tope`, `esta_vacia` | Comportamiento LIFO (Último en entrar, primero en salir). Los elementos siempre se insertan y se retiran por el mismo extremo (la cabeza de la lista interna). |
+| Cola | `encolar`, `desencolar`, `ver_frente`, `esta_vacia` | Comportamiento FIFO (Primero en entrar, primero en salir). Los elementos ingresan exclusivamente por el final de la lista interna y se retiran por el frente (la cabeza). |
 
 ## 5. Complejidad (E4)
 
