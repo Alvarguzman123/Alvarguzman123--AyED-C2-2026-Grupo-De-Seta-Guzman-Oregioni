@@ -67,13 +67,27 @@ Acción: Imprime -> Venusaur (última evolución). Retorna y corta la recursión
 
 | Operación | Tiempo | Espacio | Por qué |
 | --- | --- | --- | --- |
-|  |  |  |  |
+| Listar catálogo | O(n) | O(1) | Recorre los n elementos del catálogo una sola vez con un bucle for para imprimirlos. |
+| Ver detalle de un ítem | O(n) | O(1) | Usa búsqueda lineal sobre el catálogo recorriendo de a uno hasta encontrar el Pokemon. |
+| Búsqueda lineal | O(n) peor / O(1) mejor | O(1) | En el peor caso (no está o está al final) compara uno por uno los n elementos de la lista. |
+| Búsqueda binaria | O(log n) | O(1) | Como la colección ya está ordenada, cada comparación descarta la mitad del rango restante. |
+| Ordenar por selección | O(n^2) siempre | O(n) | Tiene dos bucles for anidados que siempre recorren todo el resto de la lista buscando el mínimo. Devuelve una copia de tamaño n. |
+| Ordenar por inserción | O(n) mejor / O(n^2) peor | O(n) | Si ya está ordenado solo compara una vez por elemento; si está al revés desplaza todos los anteriores en cada paso. Devuelve una copia de tamaño n. |
 
 Mediciones (`time.perf_counter`):
 
+Se midieron los tiempos de ejecución reales comparando el catálogo original de la Pokédex (`n = 6`) contra una copia agrandada 100 veces (`n = 600`):
+
 | Operación | n | segundos |
 | --- | --- | --- |
-|  |  |  |
+| búsqueda lineal (nombre) | 6 | 0.000006 |
+| búsqueda lineal (n x 100) | 600 | 0.000045 |
+| búsqueda binaria (nombre) | 6 | 0.000006 |
+| búsqueda binaria (n x 100) | 600 | 0.000005 |
+| ordenar por selección (nombre) | 6 | 0.000013 |
+| ordenar por selección (n x 100) | 600 | 0.024601 |
+
+**Conclusión de las mediciones:** Al multiplicar el tamaño de la muestra por 100, se comprueba en la práctica que la búsqueda binaria (`O(log n)`) se mantiene casi constante sin importar el aumento de datos, la búsqueda lineal (`O(n)`) crece de forma proporcional y el ordenamiento por selección (`O(n^2)`) se dispara drásticamente por el costo de sus bucles anidados.
 
 ## 6. Persistencia (E5)
 
