@@ -25,3 +25,6 @@ Mínimos: 8 casos escritos en E2; ejecutados en E3; 15 de regresión en E6 (pila
 | P14 | E4 | Búsqueda lineal de un nombre que no existe | Opción 3 -> 1 -> "mewtwo" | "No encontrado en el catálogo.", sin traceback, el menú sigue | pasa | |
 | P15 | E4 | Búsqueda binaria con el catálogo desordenado | Opción 3 -> 2 -> "bulbasaur" | avisa que reordena automáticamente y lo encuentra | pasa | |
 | P16 | E4 | Ordenar por un criterio y después por otro | Opción 4 por Nombre (1) y luego por Número (2) | el orden cambia correctamente en ambos casos | pasa | |
+| P17 | E5 | Guardar .csv, salir, volver a entrar | 9 -> b, salir, 9 -> a | carga los datos guardados sin perder info | pasa | |
+| P18 | E5 | Guardar binario, modificar un registro, recargar | 9 -> c, 6 -> b, salir, 9 -> d | el cambio (ej. nombre/tipo) persiste | pasa | |
+| P19 | E5 | Leer archivo con formato incorrecto o basura | archivo texto corrupto | lanza ArchivoInvalidoError, el programa no crashea | pasa | |
