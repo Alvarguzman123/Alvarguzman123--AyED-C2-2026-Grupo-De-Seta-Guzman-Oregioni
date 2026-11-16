@@ -1,11 +1,22 @@
 from src.config import TEMA
-from src.dominio.catalogo import pokedex_inicial, imprimir_cadena_evolutiva, bulbasaur, charmander, venusaur
-from src.excepciones import ColeccionLlenaError, PilaVaciaError, ColaVaciaError, ItemNoEncontradoError
+from src.dominio.pokemon import Pokemon
+from src.dominio.catalogo import (
+    pokedex_inicial, imprimir_cadena_evolutiva, bulbasaur, charmander, 
+    venusaur, armar_catalogo_desde_txt, filas_del_catalogo
+)
 from src.dominio.equipo import Equipo
+from src.excepciones import (
+    ColeccionLlenaError, PilaVaciaError, ColaVaciaError, 
+    ItemNoEncontradoError, ArchivoInvalidoError
+)
 from src.tads.pila import Pila
 from src.tads.cola import Cola
 from src.algoritmos.busqueda import busqueda_lineal, busqueda_binaria
 from src.algoritmos.ordenamiento import ordenar_seleccion, ordenar_insercion
+from src.persistencia.texto import DATA, guardar_csv
+from src.persistencia.binario import (
+    guardar_binario, cargar_binario, alta_binario, baja_binario, actualizar_registro
+)
 
 TEMAS = {
     "pokedex": "Pokédex",
@@ -13,6 +24,9 @@ TEMAS = {
     "musica": "Biblioteca musical",
 }
 
+RUTA_CSV = DATA / "pokedex.csv"
+RUTA_BIN = DATA / "pokedex.bin"
+ENCABEZADOS_CSV = ["id", "nombre", "tipo1", "tipo2", "hp", "ataque", "defensa", "velocidad", "generacion"]
 
 def obtener_nombre(pokemon):
     return pokemon.nombre.lower()
@@ -21,6 +35,12 @@ def obtener_nombre(pokemon):
 def obtener_numero(pokemon):
     return pokemon.numero
 
+def posicion_del_numero(catalogo, num_buscado):
+    """Devuelve la posición (0-based) del ítem en la lista, buscando por número."""
+    for i, p in enumerate(catalogo):
+        if p.numero == num_buscado:
+            return i
+    raise ItemNoEncontradoError(f"No hay Pokémon con número {num_buscado}")
 
 def pendiente():
     print("Todavía no está implementado. Completar en la entrega que corresponde.")
@@ -149,16 +169,78 @@ def main():
             print()
 
         elif opcion == "6":
-            print("\n--- Opción 6: Equipo Pokémon ---")
-            nombre = input("Ingresá el nombre del Pokémon para agregar: ").strip()
-            try:
-                equipo.agregar(nombre)
-                print(f"¡{nombre} agregado al equipo!")
-                historial.apilar(nombre)
-            except ColeccionLlenaError as e:
-                print(f"ERROR: {e}")
+            print("\n--- Opción 6: Gestión del Catálogo (ABM) y Equipo ---")
+            print(" a) Agregar nuevo Pokémon al catálogo (Alta)")
+            print(" b) Modificar Pokémon existente (Modificación)")
+            print(" c) Eliminar Pokémon del catálogo (Baja)")
+            print(" d) Agregar Pokémon al Equipo de Combate (Tope 6)")
+            sub6 = input("> ").strip().lower()
 
-            equipo.listar()
+            if sub6 == "a":
+                try:
+                    num = int(input("Número del nuevo Pokémon: "))
+                    nom = input("Nombre: ").strip()
+                    tip = input("Tipo: ").strip()
+                    nuevo = Pokemon(num, nom, tip)
+                    
+                    catalogo.append(nuevo) # Lo metemos en memoria
+                    
+                    # Persistencia instantánea
+                    alta_binario(RUTA_BIN, nuevo)
+                    guardar_csv(RUTA_CSV, filas_del_catalogo(catalogo), ENCABEZADOS_CSV)
+                    print(f"¡{nom} agregado al catálogo y guardado en los archivos!")
+                except ValueError:
+                    print("Error: El número debe ser un entero.")
+                    
+            elif sub6 == "b":
+                try:
+                    num = int(input("Número del Pokémon a modificar: "))
+                    pos = posicion_del_numero(catalogo, num)
+                    
+                    print(f"Modificando a: {catalogo[pos].nombre}")
+                    nom = input("Nuevo nombre: ").strip()
+                    tip = input("Nuevo tipo: ").strip()
+                    
+                    # Actualizamos en memoria
+                    catalogo[pos].nombre = nom
+                    catalogo[pos].tipo = tip
+                    
+                    # Persistencia (acceso directo)
+                    actualizar_registro(RUTA_BIN, pos, catalogo[pos])
+                    guardar_csv(RUTA_CSV, filas_del_catalogo(catalogo), ENCABEZADOS_CSV)
+                    print("¡Pokémon modificado con éxito!")
+                except ValueError:
+                    print("Error: Ingrese un número válido.")
+                except ItemNoEncontradoError as e:
+                    print(e)
+                    
+            elif sub6 == "c":
+                try:
+                    num = int(input("Número del Pokémon a eliminar: "))
+                    pos = posicion_del_numero(catalogo, num)
+                    
+                    eliminado = catalogo.pop(pos) # Lo sacamos de memoria
+                    
+                    # Persistencia
+                    baja_binario(RUTA_BIN, pos)
+                    guardar_csv(RUTA_CSV, filas_del_catalogo(catalogo), ENCABEZADOS_CSV)
+                    print(f"¡{eliminado.nombre} eliminado permanentemente!")
+                except ValueError:
+                    print("Error: Ingrese un número válido.")
+                except ItemNoEncontradoError as e:
+                    print(e)
+                    
+            elif sub6 == "d":
+                nombre = input("Ingresá el nombre del Pokémon para agregar: ").strip()
+                try:
+                    equipo.agregar(nombre)
+                    print(f"¡{nombre} agregado al equipo!")
+                    historial.apilar(nombre)
+                except ColeccionLlenaError as e:
+                    print(f"ERROR: {e}")
+                equipo.listar()
+            else:
+                print("Subopción inválida.")
 
         elif opcion == "7":
             print("\n--- Opción 7: Historial (Pila - Deshacer) ---")
@@ -186,9 +268,36 @@ def main():
                     print(f"ERROR: {e}")
 
         elif opcion == "9":
-            pendiente()
-        else:
-            print("Opción inválida.")
+            print("\n--- Guardar / Cargar Archivos ---")
+            print(" a) Cargar catálogo desde CSV (.csv)")
+            print(" b) Guardar catálogo en CSV (.csv)")
+            print(" c) Guardar catálogo en binario (.bin)")
+            print(" d) Cargar catálogo desde binario (.bin)")
+            sub = input("> ").strip().lower()
+
+            try:
+                if sub == "a":
+                    catalogo = armar_catalogo_desde_txt(RUTA_CSV)
+                    print(f"¡Catálogo cargado! Ahora hay {len(catalogo)} Pokémon en memoria.")
+                
+                elif sub == "b":
+                    filas = filas_del_catalogo(catalogo)
+                    guardar_csv(RUTA_CSV, filas, ENCABEZADOS_CSV)
+                    print("¡Catálogo guardado en pokedex.csv con éxito!")
+                
+                elif sub == "c":
+                    guardar_binario(RUTA_BIN, catalogo)
+                    print("¡Catálogo guardado en pokedex.bin con éxito!")
+                    
+                elif sub == "d":
+                    catalogo = cargar_binario(RUTA_BIN)
+                    print(f"¡Catálogo cargado desde binario! Ahora hay {len(catalogo)} Pokémon en memoria.")
+                
+                else:
+                    print("Subopción inválida.")
+                    
+            except ArchivoInvalidoError as error:
+                print(f"Error al leer el archivo: {error}")
 
 
 if __name__ == "__main__":
