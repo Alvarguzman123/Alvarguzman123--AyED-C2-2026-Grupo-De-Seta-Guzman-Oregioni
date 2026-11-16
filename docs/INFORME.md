@@ -91,9 +91,11 @@ Se midieron los tiempos de ejecución reales comparando el catálogo original de
 
 ## 6. Persistencia (E5)
 
-- Layout del registro binario (campos, `struct`, anchos):
-- Header:
-- Cómo se actualiza un registro por posición:
+
+- Layout del registro binario (campos, `struct`, anchos): Utilizamos el formato `struct.Struct("<I 20s 12s 12s 5H")` que suma exactamente 60 bytes fijos por registro. Los campos son: `id` (I, 4 bytes), `nombre` (20s, 20 bytes), `tipo1` y `tipo2` (12s, 12 bytes c/u), y 5 campos numéricos cortos para `hp/ataque/defensa/velocidad/generacion` (5H, 2 bytes c/u). Las cadenas de texto se rellenan con caracteres nulos (`\x00`) para asegurar el ancho estricto.
+- Header: Utiliza el formato `struct.Struct("<4s 1s I")`, ocupando los primeros 9 bytes del archivo. Contiene la magia (`AYED`), el identificador del tema (`P` de Pokédex) y un entero sin signo con la cantidad total de registros.
+- Cómo se actualiza un registro por posición: Se realiza mediante acceso directo (costo temporal O(1)). Se abre el archivo en modo "r+b", se posiciona el cursor con `archivo.seek(HEADER.size + posicion * FORMATO.size)` para saltar directamente al byte de inicio del registro buscado, y se lo pisa escribiendo los nuevos 60 bytes.
+
 
 ## 7. Reparto de trabajo (E6)
 

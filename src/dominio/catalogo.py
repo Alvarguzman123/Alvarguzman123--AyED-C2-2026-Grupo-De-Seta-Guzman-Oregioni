@@ -1,3 +1,5 @@
+from src.persistencia.texto import cargar_csv
+
 # Importamos la clase pokemon#
 from src.dominio.pokemon import Pokemon
 
@@ -36,3 +38,30 @@ def imprimir_cadena_evolutiva(pokemon_actual):
     
 
     imprimir_cadena_evolutiva(pokemon_actual.evolucion)
+
+def armar_catalogo_desde_txt(ruta):
+    """Lee el .txt y devuelve una lista normal con objetos Pokemon."""
+    catalogo = []
+    for fila in cargar_csv(ruta):
+        # Mapeamos las columnas del CSV a los 3 atributos de tu clase
+        pokemon = Pokemon(
+            numero=int(fila["id"]),
+            nombre=fila["nombre"],
+            tipo=fila["tipo1"]
+        )
+        catalogo.append(pokemon)
+    return catalogo
+
+def filas_del_catalogo(catalogo):
+    """Convierte los objetos Pokemon en dicts para guardarlos en el .txt."""
+    filas = []
+    for p in catalogo:
+        filas.append({
+            "id": str(p.numero),
+            "nombre": p.nombre,
+            "tipo1": p.tipo,
+            # Completamos el resto de columnas vacías para respetar el formato del TP
+            "tipo2": "", "hp": "0", "ataque": "0", "defensa": "0", 
+            "velocidad": "0", "generacion": "1"
+        })
+    return filas
