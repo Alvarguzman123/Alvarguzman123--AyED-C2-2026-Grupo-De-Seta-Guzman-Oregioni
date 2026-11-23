@@ -25,9 +25,6 @@ Atributos mutables: El atributo "evolucion".
 Debe ser mutable obligatoriamente, ya que el sistema necesitará conectar de forma dinámica a los objetos en la memoria para las próximas entregas con el fin de armar la cadena evolutiva.
 
 
-```text
-(pueden pegar un diagrama ASCII o una lista de clases)
-```
 
 ## 3. Recursión (E2)
 
@@ -97,8 +94,10 @@ Se midieron los tiempos de ejecución reales comparando el catálogo original de
 - Cómo se actualiza un registro por posición: Se realiza mediante acceso directo (costo temporal O(1)). Se abre el archivo en modo "r+b", se posiciona el cursor con `archivo.seek(HEADER.size + posicion * FORMATO.size)` para saltar directamente al byte de inicio del registro buscado, y se lo pisa escribiendo los nuevos 60 bytes.
 
 
+
 ## 7. Reparto de trabajo (E6)
 
 | Integrante | Qué hizo | Qué puede defender |
 | --- | --- | --- |
-|  |  |  |
+| Alvar Guzmán | Estructura general del proyecto, implementación de `ListaEnlazada` e iterador (E3), algoritmos de búsqueda y ordenamiento (E4), integración del menú en `main.py` y ejecución del protocolo de pruebas. | Arquitectura del proyecto, `ListaEnlazada`, algoritmos de búsqueda y ordenamiento, integración del menú y protocolo de pruebas. |
+| Carla | Modelado del dominio (`Pokemon` y `catalogo.py`), Función recursiva (E2), implementación de `Pila`, `Cola` y `Equipo` con tope (E3), manejo de excepciones y persistencia de datos (E5). | Modelado del dominio, recursión, `Pila`, `Cola` y `Equipo`, manejo de excepciones y cierre de equipo. |

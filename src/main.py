@@ -73,7 +73,7 @@ def main():
     equipo = Equipo(tope=6)
     historial = Pila()
     cola_turnos = Cola()
-
+    
     opcion = None
     while opcion != "0":
         mostrar_menu()
@@ -298,6 +298,8 @@ def main():
                     
             except ArchivoInvalidoError as error:
                 print(f"Error al leer el archivo: {error}")
+        else:
+            print("Opción inválida.")
 
 
 if __name__ == "__main__":
